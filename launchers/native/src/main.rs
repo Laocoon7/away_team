@@ -1,12 +1,9 @@
 use std::io::Cursor;
 
-use bevy::{prelude::*, winit::WinitWindows, window::PrimaryWindow};
+use bevy::{prelude::*, window::PrimaryWindow, winit::WinitWindows};
 use winit::window::Icon;
 
-fn _set_window_icon(
-    windows: NonSend<WinitWindows>,
-    primary_query: Query<Entity, With<PrimaryWindow>>
-) {
+fn _set_window_icon(windows: NonSend<WinitWindows>, primary_query: Query<Entity, With<PrimaryWindow>>) {
     let window_entity = primary_query.single();
     let primary = windows.get_window(window_entity).unwrap();
 
@@ -25,7 +22,7 @@ fn _set_window_icon(
 }
 
 fn main() {
-    let mut app = away_team::app(false);
+    let mut app = away_team::app();
 
     info!("Starting launcher: Native");
     //app.add_startup_system(set_window_icon);
