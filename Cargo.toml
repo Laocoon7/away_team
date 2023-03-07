@@ -101,6 +101,12 @@ features = [
   "bevy_text",
   "bevy_ui",
 
+  # Bloom support
+  "tonemapping_luts",
+  "hdr",
+  "ktx2",
+  "zstd",
+
   # File formats
   "png",
   "jpeg",

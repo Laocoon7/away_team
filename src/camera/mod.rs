@@ -1,4 +1,7 @@
-use bevy::prelude::*;
+use bevy::{
+    core_pipeline::{bloom::BloomSettings, tonemapping::Tonemapping},
+    prelude::*,
+};
 
 use crate::components::tags::{GameCameraTag, UiCameraTag};
 
@@ -15,7 +18,18 @@ impl Plugin for CameraPlugin {
 
 fn init_game_camera(mut commands: Commands) {
     info!("Spawning Game Camera");
-    commands.spawn((Camera2dBundle::default(), GameCameraTag));
+    commands.spawn((
+        Camera2dBundle {
+            camera: Camera {
+                hdr: true, // HDR is required for bloom
+                ..Default::default()
+            },
+            tonemapping: Tonemapping::TonyMcMapface,
+            ..Default::default()
+        },
+        BloomSettings::default(),
+        GameCameraTag,
+    ));
 }
 
 fn init_ui_camera(mut commands: Commands) {
