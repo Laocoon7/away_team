@@ -2,10 +2,14 @@ use bevy::prelude::*;
 
 use crate::components::tags::CleanupOnTransitionTag;
 
+use self::player::spawn_player;
+
 use super::states::AppState;
 
+mod player;
+
 pub fn add_systems(app: &mut App) {
-    app.add_systems((init_game,).in_schedule(OnEnter(AppState::GameRunning)));
+    app.add_systems((init_game, spawn_player).in_schedule(OnEnter(AppState::GameRunning)));
     #[cfg(feature = "debug")]
     app.add_system(super::test_system.in_schedule(OnEnter(AppState::GameRunning)));
 }
@@ -15,6 +19,9 @@ pub fn add_systems(app: &mut App) {
 // ################################
 fn init_game() {
     trace!("Initializing game");
+    // TODO: Initialize input
+    // TODO: Initialize map
+    // TODO: Spawn player
 }
 
 // ################################
