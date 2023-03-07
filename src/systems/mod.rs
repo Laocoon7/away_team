@@ -1,8 +1,7 @@
 mod states;
 
-mod exit;
+mod conditions;
 mod init;
-mod wait;
 
 mod transitions;
 
@@ -29,7 +28,7 @@ impl SystemsPlugin {
     fn add_splash_screen_plugins(&self, app: &mut App) {
         app.add_systems((init::assets, init::splash_screen).in_schedule(OnEnter(AppState::SplashScreen)));
 
-        app.add_system(transitions::splash_screen_to_main_menu.run_if(wait::assets));
+        app.add_system(transitions::splash_screen_to_main_menu.run_if(conditions::assets_loaded));
     }
 
     fn add_main_menu_plugins(&self, _app: &mut App) {}

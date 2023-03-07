@@ -1,7 +1,5 @@
 use bevy::prelude::*;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Resource, Debug)]
-pub struct CameraSettings {
-    
-}
+pub struct CameraSettings {}
