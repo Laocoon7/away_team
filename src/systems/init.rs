@@ -3,11 +3,13 @@ use bevy::prelude::*;
 use crate::components::tags::CleanupOnTransitionTag;
 
 pub fn assets(mut commands: Commands, asset_server: Res<AssetServer>) {
+    trace!("Initializing assets");
     // TODO: Load images
     // TODO: Load fonts
 }
 
 pub fn splash_screen(mut commands: Commands, asset_server: Res<AssetServer>) {
+    trace!("Initializing splash screen");
     commands
         .spawn((
             NodeBundle {

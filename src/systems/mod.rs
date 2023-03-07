@@ -28,12 +28,22 @@ impl SystemsPlugin {
     fn add_splash_screen_plugins(&self, app: &mut App) {
         app.add_systems((init::assets, init::splash_screen).in_schedule(OnEnter(AppState::SplashScreen)));
 
-        app.add_system(transitions::splash_screen_to_main_menu.run_if(conditions::assets_loaded));
+        app.add_system(
+            transitions::splash_screen_to_main_menu
+                .in_set(OnUpdate(AppState::SplashScreen))
+                .run_if(conditions::assets_loaded),
+        );
     }
 
-    fn add_main_menu_plugins(&self, _app: &mut App) {}
+    fn add_main_menu_plugins(&self, app: &mut App) {
+        app.add_system(test_system.in_schedule(OnEnter(AppState::MainMenu)));
+    }
 
     fn add_settings_menu_plugins(&self, _app: &mut App) {}
 
     fn add_game_running_plugins(&self, _app: &mut App) {}
+}
+
+fn test_system(state: Res<State<AppState>>) {
+    info!("We are in the {:?} state", state.0);
 }
