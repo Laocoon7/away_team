@@ -1,5 +1,9 @@
+mod camera;
+mod components;
 mod debug;
 mod log;
+mod resources;
+mod systems;
 
 use bevy::{
     app::{NoopPluginGroup, PluginGroupBuilder},
@@ -43,11 +47,17 @@ fn default_plugins() -> PluginGroupBuilder {
 }
 
 fn external_plugins() -> PluginGroupBuilder {
-    NoopPluginGroup.build()
+    let plugins = PluginGroupBuilder::start::<NoopPluginGroup>();
+
+    plugins
 }
 
 fn my_plugins() -> PluginGroupBuilder {
-    let plugins = PluginGroupBuilder::start::<bevy::app::NoopPluginGroup>();
+    let plugins = PluginGroupBuilder::start::<NoopPluginGroup>()
+        .add(camera::CameraPlugin)
+        .add(components::ComponentsPlugin)
+        .add(systems::SystemsPlugin);
+
     #[cfg(feature = "debug")]
     let plugins = plugins.add(debug::DebugPlugin);
 
@@ -55,5 +65,8 @@ fn my_plugins() -> PluginGroupBuilder {
 }
 
 fn register_types(_app: &mut App) {
+    // See components::register_types()
+    // See resources::register_types()
+
     //app.register_type::<>();
 }
